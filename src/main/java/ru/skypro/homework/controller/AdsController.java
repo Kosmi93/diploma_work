@@ -2,12 +2,13 @@ package ru.skypro.homework.controller;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 import ru.skypro.homework.dto.Ads;
 import ru.skypro.homework.model.AdsInfo;
-
-import java.util.UUID;
+import ru.skypro.homework.service.impl.ImgServiceImpl;
 
 @Slf4j
 //@CrossOrigin(value = "http://localhost:3000")
@@ -15,6 +16,7 @@ import java.util.UUID;
 @RequiredArgsConstructor
 @RequestMapping("/asd")
 public class AdsController {
+    private final ImgServiceImpl imgService;
 
     @GetMapping()
     public ResponseEntity<?> getAll() {
@@ -26,17 +28,17 @@ public class AdsController {
         return null;
     }
 
-    @GetMapping("{adsId}")
+    @GetMapping("/{adsId}")
     public ResponseEntity<AdsInfo> getInfo(@PathVariable("adsId") Long usersId) {
         return null;
     }
 
-    @DeleteMapping("{adsId}")
+    @DeleteMapping("/{adsId}")
     public ResponseEntity<?> delete(@PathVariable("adsId") Long usersId) {
         return null;
     }
 
-    @PatchMapping("{adsId}")
+    @PatchMapping("/{adsId}")
     public ResponseEntity<AdsInfo> update(@PathVariable("adsId") Long usersId) {
         return null;
     }
@@ -46,9 +48,10 @@ public class AdsController {
         return null;
     }
 
-    @PatchMapping("{adsId}/image")
-    public ResponseEntity<String> updateImages(@PathVariable("adsId") Long usersId) {
-        return null;
+    @PatchMapping(value ="/{adsId}/image", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
+    public String updateImages(@PathVariable("adsId") Long adsId,@RequestParam MultipartFile img) {
+        return imgService.uploadImg(adsId,img);
+
     }
 
 }

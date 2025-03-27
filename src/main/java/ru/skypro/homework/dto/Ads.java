@@ -12,10 +12,9 @@ import lombok.Setter;
 
 public class Ads {
     //связать с классом юзер через автора
-    private Long id;
-    private int author;
+    private Long author;
     private String image;
-    private int pk;
+    private Long pk; //это id
     private double price;
     private String title;
 
