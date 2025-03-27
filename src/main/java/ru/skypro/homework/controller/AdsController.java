@@ -28,18 +28,18 @@ public class AdsController {
         return null;
     }
 
-    @GetMapping("/{adsId}")
-    public ResponseEntity<AdsInfo> getInfo(@PathVariable("adsId") Long usersId) {
+    @GetMapping("/{id}")
+    public ResponseEntity<AdsInfo> getInfo(@PathVariable("id") Long id) {
         return null;
     }
 
-    @DeleteMapping("/{adsId}")
-    public ResponseEntity<?> delete(@PathVariable("adsId") Long usersId) {
+    @DeleteMapping("/{id}")
+    public ResponseEntity<?> delete(@PathVariable("id") Long id) {
         return null;
     }
 
-    @PatchMapping("/{adsId}")
-    public ResponseEntity<AdsInfo> update(@PathVariable("adsId") Long usersId) {
+    @PatchMapping("/{id}")
+    public ResponseEntity<AdsInfo> update(@PathVariable("id") Long id) {
         return null;
     }
 
@@ -48,9 +48,9 @@ public class AdsController {
         return null;
     }
 
-    @PatchMapping(value ="/{adsId}/image", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
-    public String updateImages(@PathVariable("adsId") Long adsId,@RequestParam MultipartFile img) {
-        return imgService.uploadImg(adsId,img);
+    @PatchMapping(value ="/{id}/image", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
+    public String updateImages(@PathVariable("id") Long id,@RequestParam MultipartFile img) {
+        return imgService.uploadImg(id,img);
 
     }
 
