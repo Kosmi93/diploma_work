@@ -1,12 +1,14 @@
 package ru.skypro.homework.model;
 
 import lombok.Data;
+import lombok.experimental.Accessors;
 import ru.skypro.homework.dto.RoleDto;
 
 import javax.persistence.*;
 import java.util.List;
 
 @Data
+@Accessors(chain = true)
 @Entity
 @Table(name = "User")
 public class User {
