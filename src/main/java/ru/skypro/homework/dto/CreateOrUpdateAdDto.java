@@ -1,4 +1,4 @@
-package ru.skypro.homework.model;
+package ru.skypro.homework.dto;
 
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.AllArgsConstructor;
@@ -11,7 +11,7 @@ import lombok.Setter;
 @Getter
 @Setter
 @Schema(description = "CreateOrUpdateAd")
-public class CreateOrUpdateAd {
+public class CreateOrUpdateAdDto {
     @Schema(description = "Заголовок объявления", example = "Товар")
     private String title;
     @Schema(description = "Цена", example = "38292,00")

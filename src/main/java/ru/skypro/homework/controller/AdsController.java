@@ -8,8 +8,8 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
-import ru.skypro.homework.dto.Ad;
-import ru.skypro.homework.model.ExtendedAd;
+import ru.skypro.homework.model.Ad;
+import ru.skypro.homework.dto.ExtendedAdDto;
 import ru.skypro.homework.service.impl.ImgServiceImpl;
 
 @Slf4j
@@ -37,7 +37,7 @@ public class AdsController {
 
     @GetMapping("/{id}")
     @Operation(summary = "Получение информации об объявлении")
-    public ResponseEntity<ExtendedAd> getInfo(@PathVariable("id") Long id) {
+    public ResponseEntity<ExtendedAdDto> getInfo(@PathVariable("id") Long id) {
         return null;
     }
 
@@ -49,7 +49,7 @@ public class AdsController {
 
     @PatchMapping("/{id}")
     @Operation(summary = "Обновление объявления")
-    public ResponseEntity<ExtendedAd> update(@PathVariable("id") Long id) {
+    public ResponseEntity<ExtendedAdDto> update(@PathVariable("id") Long id) {
         return null;
     }
 

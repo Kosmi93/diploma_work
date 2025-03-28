@@ -1,4 +1,4 @@
-package ru.skypro.homework.model;
+package ru.skypro.homework.dto;
 
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.AllArgsConstructor;
@@ -11,7 +11,7 @@ import lombok.Setter;
 @Getter
 @Setter
 @Schema(description = "Информации об объявлении")
-public class ExtendedAd {
+public class ExtendedAdDto {
     @Schema(description = "Id объявления", example = "13221")
     private int pk;
     @Schema(description = "Имя автора", example = "Иван")
