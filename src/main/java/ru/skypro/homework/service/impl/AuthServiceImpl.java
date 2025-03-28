@@ -13,13 +13,11 @@ public class AuthServiceImpl implements AuthService {
 
     private final UserDetailsManager manager;
     private final PasswordEncoder encoder;
-
     public AuthServiceImpl(UserDetailsManager manager,
                            PasswordEncoder passwordEncoder) {
         this.manager = manager;
         this.encoder = passwordEncoder;
     }
-
     @Override
     public boolean login(String userName, String password) {
         if (!manager.userExists(userName)) {
@@ -31,14 +29,14 @@ public class AuthServiceImpl implements AuthService {
 
     @Override
     public boolean register(RegisterDto register) {
-        if (manager.userExists(register.getUsername())) {
+        if (manager.userExists(register.getUserName())) {
             return false;
         }
         manager.createUser(
                 User.builder()
                         .passwordEncoder(this.encoder::encode)
                         .password(register.getPassword())
-                        .username(register.getUsername())
+                        .username(register.getUserName())
                         .roles(register.getRole().name())
                         .build());
         return true;
