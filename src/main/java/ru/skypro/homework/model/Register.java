@@ -1,4 +1,4 @@
-package ru.skypro.homework.dto;
+package ru.skypro.homework.model;
 
 import lombok.Data;
 
@@ -10,5 +10,5 @@ public class Register {
     private String firstName;
     private String lastName;
     private String phone;
-    private Role role;
+    //private Role role;
 }
