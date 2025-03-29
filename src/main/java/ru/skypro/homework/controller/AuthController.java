@@ -9,26 +9,26 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 import ru.skypro.homework.dto.LoginDto;
-import ru.skypro.homework.dto.RegisterDto;
 import ru.skypro.homework.service.AuthService;
 
 @Slf4j
 @CrossOrigin(value = "http://localhost:3000")
 @RestController
+@RequiredArgsConstructor  // Lombok генерирует конструктор для final полей
 public class AuthController {
+
     private final AuthService authService;
 
-    public AuthController(AuthService authService) {
-        this.authService = authService;
-    }
-
     @PostMapping("/login")
-    public ResponseEntity<?> login(@RequestBody LoginDto login) {
-        if (authService.login(login.getUsername(), login.getPassword())) {
+    public ResponseEntity<Void> login(@RequestBody LoginDto login) {
+        log.info("Попытка логина с логином: {}", login.getUserName());  // Логируем попытку входа
+
+        if (authService.login(login.getUserName(), login.getPassword())) {
+            log.info("Пользователь {} успешно авторизован", login.getUserName());  // Логируем успешный вход
             return ResponseEntity.ok().build();
         } else {
+            log.warn("Неудачная попытка входа для пользователя: {}", login.getUserName());  // Логируем неудачную попытку входа
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
         }
     }
-
 }

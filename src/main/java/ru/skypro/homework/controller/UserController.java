@@ -29,14 +29,13 @@ public class UserController {
     }
 
     @PatchMapping("/me")
-    public ResponseEntity<UserDto> updateUser(@Valid @RequestBody UpdateUserDto updateUser) {
-        UserDto updatedUser = null;
+    public ResponseEntity<UpdateUserDto> updateUser(@Valid @RequestBody UpdateUserDto updateUser) {
+        UpdateUserDto updatedUser = null;
         return ResponseEntity.ok(updatedUser);
     }
 
     @PatchMapping(value = "/me/image", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
-    public ResponseEntity<UserDto> updateUserImage(@RequestParam("image") MultipartFile image) {
-        UserDto user = null;
-        return ResponseEntity.ok(user);
+    public ResponseEntity<Void> updateUserImage(@RequestParam("image") MultipartFile image) {
+        return ResponseEntity.ok().build();
     }
 }
