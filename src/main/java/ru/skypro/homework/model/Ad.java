@@ -30,3 +30,4 @@ public class Ad {
     @OneToMany(mappedBy = "ad", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<Comment> comments;
 }
+
