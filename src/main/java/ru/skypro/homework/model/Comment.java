@@ -4,30 +4,27 @@ import lombok.Data;
 import lombok.experimental.Accessors;
 
 import javax.persistence.*;
-import java.util.List;
 
 @Data
 @Accessors(chain = true)
 @Entity
-@Table(name = "ad")
-public class Ad {
+@Table(name = "comment")
+public class Comment {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private Integer id;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "id_user")
     private User author;
 
-    private String image;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "id_ad")
+    private Ad ad;
 
-    private Integer price;
+    private Long createdAt;
 
-    private String title;
+    private String text;
 
-    private String description;
-    @OneToMany(mappedBy = "ad", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    private List<Comment> comments;
 }
-
