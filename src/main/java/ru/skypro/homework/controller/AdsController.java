@@ -13,10 +13,10 @@ import ru.skypro.homework.dto.ExtendedAdDto;
 import ru.skypro.homework.service.impl.ImgServiceImpl;
 
 @Slf4j
-//@CrossOrigin(value = "http://localhost:3000")
+@CrossOrigin(value = "http://localhost:3000")
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/asd")
+@RequestMapping("/ads")
 @Tag(name = "Объявления")
 public class AdsController {
     private final ImgServiceImpl imgService;
