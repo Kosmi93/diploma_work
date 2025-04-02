@@ -8,4 +8,5 @@ import java.util.List;
 
 public interface AdRepository extends JpaRepository<Ad, Long> {
     List<Ad> findByAuthor(User user);
+
 }

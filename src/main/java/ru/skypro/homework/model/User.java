@@ -1,18 +1,22 @@
 package ru.skypro.homework.model;
 
-import lombok.Data;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import lombok.*;
 import lombok.experimental.Accessors;
 import ru.skypro.homework.dto.RoleDto;
 
 import javax.persistence.*;
 import java.util.List;
 
-@Data
+@Getter
+@Setter
+@AllArgsConstructor
+@NoArgsConstructor
 @Accessors(chain = true)
 @Entity
 @Table(name = "users")
 public class User {
-
+    
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -32,4 +36,7 @@ public class User {
 
     @OneToMany(mappedBy = "author", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<Comment> comments;
+
+    public User(Long id) {
+    }
 }
