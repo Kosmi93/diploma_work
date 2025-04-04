@@ -11,7 +11,7 @@ import ru.skypro.homework.model.User;
 import java.io.IOException;
 
 public interface UserService {
-    boolean setPassword(SetPasswordDto newPasswordDto) throws UserNotFoundException, InvalidPasswordException;
+    boolean setPassword(SetPasswordDto newPasswordDto);
     UserDto getUser();
     UpdateUserDto updateUser(UpdateUserDto updateUserDto);
     void updateUserImage(MultipartFile file);
