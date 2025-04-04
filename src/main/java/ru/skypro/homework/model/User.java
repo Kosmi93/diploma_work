@@ -1,6 +1,5 @@
 package ru.skypro.homework.model;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 import lombok.experimental.Accessors;
 import ru.skypro.homework.dto.RoleDto;
@@ -14,6 +13,7 @@ import java.util.List;
 @NoArgsConstructor
 @Accessors(chain = true)
 @Entity
+@Builder
 @Table(name = "users")
 public class User {
     
@@ -21,7 +21,7 @@ public class User {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     @Column(name = "username", unique = true)
-    private String username;
+    private String userName;
     private String password;
     private String firstName;
     private String lastName;
