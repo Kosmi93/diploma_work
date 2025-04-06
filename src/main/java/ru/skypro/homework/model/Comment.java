@@ -1,6 +1,8 @@
 package ru.skypro.homework.model;
 
 import lombok.Data;
+import org.hibernate.annotations.CreationTimestamp;
+
 import javax.persistence.*;
 import java.time.LocalDateTime;
 
@@ -10,25 +12,20 @@ import java.time.LocalDateTime;
 public class Comment {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer pk;
+    private Integer id;
 
-    @Column(nullable = false)
-    private String text;
+    @ManyToOne
+    @JoinColumn(name = "user_id")
+    private User user;
 
-    @Column(name = "created_at", nullable = false)
+    @ManyToOne
+    @JoinColumn(name = "ad_id")
+    private Ad ad;
+
+    @Column(name = "created_at")
+    @CreationTimestamp
     private LocalDateTime createdAt;
 
-    @ManyToOne
-    @JoinColumn(name = "author_id", nullable = false)
-    private User author;
-
-    @Column(name = "author_image")
-    private String authorImage;
-
-    @Column(name = "author_first_name")
-    private String authorFirstName;
-
-    @ManyToOne
-    @JoinColumn(name = "ad_id", nullable = false)
-    private Ad ad;
+    @Column(name = "text")
+    private String text;
 }
