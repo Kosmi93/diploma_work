@@ -1,30 +1,34 @@
 package ru.skypro.homework.model;
 
 import lombok.Data;
-import lombok.experimental.Accessors;
-
 import javax.persistence.*;
+import java.time.LocalDateTime;
 
 @Data
-@Accessors(chain = true)
 @Entity
-@Table(name = "comment")
+@Table(name = "comments")
 public class Comment {
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
+    private Integer pk;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "id_user")
-    private User author;
-
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "id_ad")
-    private Ad ad;
-
-    private Long createdAt;
-
+    @Column(nullable = false)
     private String text;
 
+    @Column(name = "created_at", nullable = false)
+    private LocalDateTime createdAt;
+
+    @ManyToOne
+    @JoinColumn(name = "author_id", nullable = false)
+    private User author;
+
+    @Column(name = "author_image")
+    private String authorImage;
+
+    @Column(name = "author_first_name")
+    private String authorFirstName;
+
+    @ManyToOne
+    @JoinColumn(name = "ad_id", nullable = false)
+    private Ad ad;
 }
