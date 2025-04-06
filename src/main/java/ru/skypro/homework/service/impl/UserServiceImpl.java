@@ -8,14 +8,11 @@ import org.springframework.web.multipart.MultipartFile;
 import ru.skypro.homework.dto.SetPasswordDto;
 import ru.skypro.homework.dto.UpdateUserDto;
 import ru.skypro.homework.dto.UserDto;
-import ru.skypro.homework.exception.InvalidPasswordException;
-import ru.skypro.homework.exception.UserNotFoundException;
 import ru.skypro.homework.mapper.UserMapper;
 import ru.skypro.homework.model.User;
 import ru.skypro.homework.repository.UserRepository;
 import ru.skypro.homework.service.UserService;
 
-import java.io.IOException;
 import java.util.Optional;
 
 @Service

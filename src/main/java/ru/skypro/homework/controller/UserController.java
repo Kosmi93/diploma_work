@@ -1,23 +1,18 @@
 package ru.skypro.homework.controller;
 
 import io.swagger.v3.oas.annotations.tags.Tag;
-import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import ru.skypro.homework.dto.SetPasswordDto;
 import ru.skypro.homework.dto.UpdateUserDto;
 import ru.skypro.homework.dto.UserDto;
-import ru.skypro.homework.exception.InvalidPasswordException;
-import ru.skypro.homework.exception.UserNotFoundException;
 import ru.skypro.homework.service.impl.UserServiceImpl;
 
 import javax.validation.Valid;
-import java.util.Optional;
 
 @Slf4j
 @CrossOrigin(value = "http://localhost:3000")

@@ -9,7 +9,9 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
+import ru.skypro.homework.dto.AdDto;
 import ru.skypro.homework.dto.AdsDto;
+import ru.skypro.homework.dto.CreateOrUpdateAdDto;
 import ru.skypro.homework.model.Ad;
 import ru.skypro.homework.dto.ExtendedAdDto;
 import ru.skypro.homework.service.AdsService;
@@ -19,7 +21,7 @@ import ru.skypro.homework.service.impl.ImgServiceImpl;
 @CrossOrigin(value = "http://localhost:3000")
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/asd")
+@RequestMapping("/ads")
 @Tag(name = "Объявления")
 public class AdsController {
     private final AdsService service;
@@ -35,14 +37,15 @@ public class AdsController {
 
     @PostMapping()
     @Operation(summary = "Создание объявления")
-    public ResponseEntity<?> add(@RequestBody Ad ad) {
+    public ResponseEntity<?> add(@RequestBody AdDto ad) {
+        service.save(ad);
         return new ResponseEntity<>(service.save(ad),HttpStatus.valueOf(201));
     }
 
     @GetMapping("/{id}")
     @Operation(summary = "Получение информации об объявлении")
     public ResponseEntity<ExtendedAdDto> getInfo(@PathVariable("id") Long id) {
-        return null;
+        return ResponseEntity.ok(service.geInfo(id));
     }
 
     @DeleteMapping("/{id}")
@@ -53,13 +56,14 @@ public class AdsController {
 
     @PatchMapping("/{id}")
     @Operation(summary = "Обновление объявления")
-    public ResponseEntity<ExtendedAdDto> update(@PathVariable("id") Long id) {
-        return null;
+    public ResponseEntity<CreateOrUpdateAdDto> update(@PathVariable("id") Long id,@RequestBody CreateOrUpdateAdDto ad) {
+        return ResponseEntity.ok(service.update(id,ad));
     }
 
     @GetMapping("/me")
     @Operation(summary = "Получение объявлений авторизованного пользователя")
     public ResponseEntity<?> getAllMe() {
+        service.getMeAds();
         return null;
     }
 
