@@ -1,23 +1,27 @@
 package ru.skypro.homework.model;
 
-import lombok.Data;
+import lombok.*;
 import lombok.experimental.Accessors;
 import ru.skypro.homework.dto.RoleDto;
 
 import javax.persistence.*;
 import java.util.List;
 
-@Data
+@Getter
+@Setter
+@AllArgsConstructor
+@NoArgsConstructor
 @Accessors(chain = true)
 @Entity
-@Table(name = "User")
+@Builder
+@Table(name = "users")
 public class User {
-
+    
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    private Long id;
     @Column(name = "username", unique = true)
-    private String username;
+    private String userName;
     private String password;
     private String firstName;
     private String lastName;
@@ -27,11 +31,12 @@ public class User {
 
     private String idImage;
 
-    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "author", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<Ad> ads;
 
-    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "author", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<Comment> comments;
 
-
+    public User(Long id) {
+    }
 }

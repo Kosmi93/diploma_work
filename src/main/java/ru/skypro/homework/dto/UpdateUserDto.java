@@ -7,6 +7,7 @@ import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 
 @Data
+@Builder
 public class UpdateUserDto {
     @Size(min = 2, max = 16, message = "Имя должно содержать от 2 до 16 символов")
     @NotBlank(message = "Имя обязательно для заполнения")

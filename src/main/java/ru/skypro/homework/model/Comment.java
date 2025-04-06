@@ -10,7 +10,9 @@ import java.time.LocalDateTime;
 public class Comment {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer pk;
+
+    private Long id;
+
 
     @Column(nullable = false)
     private String text;
