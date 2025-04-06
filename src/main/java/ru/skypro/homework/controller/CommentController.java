@@ -6,42 +6,44 @@ import ru.skypro.homework.dto.CommentRequest;
 import ru.skypro.homework.dto.CommentResponse;
 import ru.skypro.homework.dto.CommentListResponse;
 import ru.skypro.homework.dto.CommentUpdateRequest;
-
-import java.util.List;
+import ru.skypro.homework.service.CommentService;
 
 @RestController
 @RequestMapping("/ads")
+@CrossOrigin(value = "http://localhost:3000")
 public class CommentController {
 
-    @GetMapping("/{id}/comments")
-    public ResponseEntity<CommentListResponse> getComments(
-            @PathVariable("id") Integer adId) {
-        // Заглушка - в реальном проекте заменить на реализацию
-        return ResponseEntity.ok(new CommentListResponse(0, List.of()));
+    private final CommentService commentService;
+
+    public CommentController(CommentService commentService) {
+        this.commentService = commentService;
     }
 
-    @PostMapping("/{id}/comments")
-    public ResponseEntity<CommentResponse> addComment(
-            @PathVariable("id") Integer adId,
-            @RequestBody CommentRequest commentRequest) {
-        // Заглушка - в реальном проекте заменить на реализацию
-        return ResponseEntity.ok(new CommentResponse());
+    @GetMapping("/{adId}/comments")
+    public ResponseEntity<CommentListResponse> getCommentsByAdId(@PathVariable Integer adId) {
+        CommentListResponse comments = commentService.getCommentsByAdId(adId);
+        return ResponseEntity.ok(comments);
+    }
+
+    @PostMapping("/{adId}/comments")
+    public ResponseEntity<CommentResponse> addComment(@PathVariable Integer adId,
+                                                      @RequestBody CommentRequest commentRequest) {
+        CommentResponse comment = commentService.addComment(adId, commentRequest);
+        return ResponseEntity.ok(comment);
     }
 
     @DeleteMapping("/{adId}/comments/{commentId}")
-    public ResponseEntity<Void> deleteComment(
-            @PathVariable("adId") Integer adId,
-            @PathVariable("commentId") Integer commentId) {
-        // Заглушка - в реальном проекте заменить на реализацию
+    public ResponseEntity<Void> deleteComment(@PathVariable Integer adId,
+                                              @PathVariable Integer commentId) {
+        commentService.deleteComment(adId, commentId);
         return ResponseEntity.ok().build();
     }
 
     @PatchMapping("/{adId}/comments/{commentId}")
-    public ResponseEntity<CommentResponse> updateComment(
-            @PathVariable("adId") Integer adId,
-            @PathVariable("commentId") Integer commentId,
-            @RequestBody CommentUpdateRequest commentUpdateRequest) {
-        // Заглушка - в реальном проекте заменить на реализацию
-        return ResponseEntity.ok(new CommentResponse());
+    public ResponseEntity<CommentResponse> updateComment(@PathVariable Integer adId,
+                                                         @PathVariable Integer commentId,
+                                                         @RequestBody CommentUpdateRequest commentUpdateRequest) {
+        CommentResponse updatedComment = commentService.updateComment(adId, commentId, commentUpdateRequest);
+        return ResponseEntity.ok(updatedComment);
     }
 }
