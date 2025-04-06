@@ -1,10 +1,7 @@
 package ru.skypro.homework.dto;
 
 import io.swagger.v3.oas.annotations.media.Schema;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 import ru.skypro.homework.model.Ad;
 
 import java.util.List;
@@ -13,9 +10,10 @@ import java.util.List;
 @AllArgsConstructor
 @Getter
 @Setter
+@Builder
 public class AdsDto {
     @Schema(description = "Общее количество объявлений", example = "3")
-    private Long count;
+    private int count;
     @Schema(description = "Список объявлений")
-    private List<Ad> result;
+    private List<AdDto> result;
 }
