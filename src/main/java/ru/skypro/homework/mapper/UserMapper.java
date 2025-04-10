@@ -23,7 +23,7 @@ public class UserMapper {
                 .lastName(user.getLastName())
                 .phone(user.getPhone())
                 .role(user.getRole())
-                .image(user.getIdImage())
+                .image(user.getImage())
                 .build();
     }
 
@@ -36,7 +36,7 @@ public class UserMapper {
                 .lastName(updateUserDto.getLastName())
                 .phone(updateUserDto.getPhone())
                 .role(user.getRole())
-                .idImage(user.getIdImage())
+                .image(user.getImage())
                 .build();
     }
      public UpdateUserDto toUpdateUserDto(UpdateUserDto updateUserDto, User user) {
@@ -50,7 +50,7 @@ public class UserMapper {
     public User toRegisterUser(RegisterDto registerDto) {
         User user = new User();
         return user.builder()
-                .userName(registerDto.getUserName())
+                .userName(registerDto.getUsername())
                 .password(registerDto.getPassword())
                 .firstName(registerDto.getFirstName())
                 .lastName(registerDto.getLastName())

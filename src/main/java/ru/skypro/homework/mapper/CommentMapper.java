@@ -18,9 +18,9 @@ public interface CommentMapper {
     @Mapping(target = "createdAt", ignore = true)
     Comment toEntity(CommentRequest commentRequest);
 
-    @Mapping(target = "author", source = "user.id")
-    @Mapping(target = "authorFirstName", source = "user.firstName")
-    @Mapping(target = "authorImage", source = "user.image", qualifiedByName = "getImagePath")
+    @Mapping(target = "author", source = "users.id")
+    @Mapping(target = "authorFirstName", source = "users.firstName")
+    @Mapping(target = "authorImage", source = "users.image", qualifiedByName = "getImagePath")
     @Mapping(target = "createdAt", source = "createdAt", dateFormat = "dd-MM-yyyy HH:mm:ss")
     @Mapping(target = "pk", source = "id")
     CommentResponse toDto(Comment comment);
