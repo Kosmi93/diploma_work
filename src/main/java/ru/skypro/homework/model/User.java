@@ -29,7 +29,7 @@ public class User {
     @Enumerated(EnumType.STRING)
     private RoleDto role;
 
-    private String idImage;
+    private String image;
 
     @OneToMany(mappedBy = "author", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<Ad> ads;

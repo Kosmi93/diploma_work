@@ -10,7 +10,7 @@ public class LoginDto {
 
     @Size(min = 4, max = 32, message = "Логин должен содержать от 4 до 32 символов")
     @NotBlank(message = "Логин обязателен для заполнения")
-    private String userName;
+    private String username;
 
     @Size(min = 8, max = 16, message = "Пароль должен содержать от 8 до 16 символов")
     @NotBlank(message = "Пароль обязателен для заполнения")

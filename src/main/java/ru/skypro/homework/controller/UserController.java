@@ -5,14 +5,21 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import ru.skypro.homework.dto.SetPasswordDto;
 import ru.skypro.homework.dto.UpdateUserDto;
 import ru.skypro.homework.dto.UserDto;
+import ru.skypro.homework.exception.InvalidPasswordException;
+import ru.skypro.homework.service.UserService;
 import ru.skypro.homework.service.impl.UserServiceImpl;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
+import java.io.IOException;
+import java.util.Optional;
 
 @Slf4j
 @CrossOrigin(value = "http://localhost:3000")
@@ -21,23 +28,19 @@ import javax.validation.Valid;
 @Tag(name = "Пользователи")
 public class UserController {
     private final UserServiceImpl userService;
-
     public UserController(UserServiceImpl userService) {
         this.userService = userService;
     }
 
     @PostMapping("/set_password")
-    public ResponseEntity<Void> setPassword(@RequestBody SetPasswordDto password) {
+    public ResponseEntity<Void> setPassword(@RequestBody SetPasswordDto password, Authentication authentication) {
         try {
-            boolean result =       userService.setPassword(password);
-            if (result) {
-                return ResponseEntity.ok().build();
-            } else {
-                return ResponseEntity.status(HttpStatus.FORBIDDEN).build();
-            }
-        } catch (Exception e) {
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+            userService.setPassword(password, authentication.getName());
+        } catch (InvalidPasswordException e) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
         }
+
+        return ResponseEntity.ok().build();
     }
 
     @GetMapping("/me")
@@ -46,6 +49,7 @@ public class UserController {
         return ResponseEntity.ok(user);
     }
 
+
     @PatchMapping("/me")
     public ResponseEntity<UpdateUserDto> updateUser(@Valid @RequestBody UpdateUserDto updateUser) {
         UpdateUserDto updatedUser = userService.updateUser(updateUser);
@@ -53,7 +57,7 @@ public class UserController {
     }
 
     @PatchMapping(value = "/me/image", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
-    public ResponseEntity<Void> updateUserImage(@RequestParam("image") MultipartFile image) {
+    public ResponseEntity<Void> updateUserImage(@RequestParam("image") MultipartFile image) throws IOException {
         userService.updateUserImage(image);
         return ResponseEntity.ok().build();
     }
