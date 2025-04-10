@@ -21,20 +21,21 @@ import ru.skypro.homework.service.UserService;
 import java.awt.*;
 import java.io.IOException;
 import java.util.Optional;
-import java.nio.file.Files;
-import java.nio.file.Path;
+
 @Service
 public class UserServiceImpl implements UserService {
     private final UserRepository userRepository;
     private final UserMapper userMapper;
     private final PasswordEncoder passwordEncoder;
     private final ImgService imgService;
+
     public UserServiceImpl(UserRepository userRepository, UserMapper userMapper, PasswordEncoder passwordEncoder, ImgService imgService) {
         this.userRepository = userRepository;
         this.userMapper = userMapper;
         this.passwordEncoder = passwordEncoder;
         this.imgService = imgService;
     }
+
     @Override
     public void setPassword(SetPasswordDto newPasswordDto, String username) {
         User user = userRepository.findByUserName(username).orElseThrow(() -> new UserNotFoundException("User is not found"));
@@ -67,34 +68,17 @@ public class UserServiceImpl implements UserService {
         User updateUser = userMapper.toUpdateUser(updateUserDto, user);
         userRepository.save(updateUser);
 
-        return userMapper.toUpdateUserDto(updateUserDto,user);
+        return userMapper.toUpdateUserDto(updateUserDto, user);
     }
 
     @Override
-    public void updateUserImage(MultipartFile file) throws IOException {
-/*
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        String username = authentication.getName();
-        User user = (userRepository.findByUserName(username)).orElseThrow();
-        user.setImage(imgService.save(user.getId(), file,path));
-        userRepository.save(user);
-*/
-/*        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        String username = authentication.getName();
-        try {
-            User user = userRepository.findByUserName(username).orElseThrow(() -> new UsernameNotFoundException("Username is not found"));
-            if (user.getImage() == null) {
-                user.setImage(pathToDefaultUserImage);
-            }
-            return Files.readAllBytes(Path.of(user.getImage()));
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }*/
+    public void updateUserImage(MultipartFile file) {
+
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String username = authentication.getName();
         User user = userRepository.findByUserName(username)
                 .orElseThrow(() -> new UsernameNotFoundException("Username not found"));
-        String savedImagePath = imgService.uploadImg(user.getId(), file); // путь к сохранённому файлу
+        String savedImagePath = imgService.uploadImg(user.getId(), file);
         user.setImage(savedImagePath);
         userRepository.save(user);
     }
