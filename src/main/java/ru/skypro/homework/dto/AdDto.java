@@ -16,8 +16,8 @@ import java.util.List;
 @Builder
 public class AdDto {
 
-    private Long pk;
-    private Long author;
+    private Integer pk;
+    private Integer author;
     private String image;
     private Integer price;
     private String title;

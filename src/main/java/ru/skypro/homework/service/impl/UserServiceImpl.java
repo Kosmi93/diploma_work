@@ -50,16 +50,14 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public UserDto getUser() {
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        String userName = authentication.getName();
+        String userName = SecurityContextHolder.getContext().getAuthentication().getName();
         User user = (userRepository.findByUserName(userName)).orElseThrow();
         return userMapper.toUserDto(user);
     }
 
     @Override
     public UpdateUserDto updateUser(UpdateUserDto updateUserDto) {
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        String userName = authentication.getName();
+        String userName = SecurityContextHolder.getContext().getAuthentication().getName();
         Optional<User> userOptional = userRepository.findByUserName(userName);
         if (userOptional.isEmpty()) {
             throw new UserNotFoundException("User not found for update");
@@ -73,10 +71,8 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public void updateUserImage(MultipartFile file) {
-
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        String username = authentication.getName();
-        User user = userRepository.findByUserName(username)
+        String userName = SecurityContextHolder.getContext().getAuthentication().getName();
+        User user = userRepository.findByUserName(userName)
                 .orElseThrow(() -> new UsernameNotFoundException("Username not found"));
         String savedImagePath = imgService.uploadImg(user.getId(), file);
         user.setImage(savedImagePath);

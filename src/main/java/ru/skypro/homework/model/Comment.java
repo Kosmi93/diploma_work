@@ -1,22 +1,24 @@
 package ru.skypro.homework.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import lombok.Data;
-import org.hibernate.annotations.CreationTimestamp;
+import lombok.*;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
 
 @Data
+@Getter
+@Setter
+@AllArgsConstructor
+@NoArgsConstructor
 @Entity
 @Table(name = "comments")
+@Builder
 public class Comment {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
 
-    private Long id;
-
-
+    private Integer id;
     @Column(nullable = false)
     private String text;
 

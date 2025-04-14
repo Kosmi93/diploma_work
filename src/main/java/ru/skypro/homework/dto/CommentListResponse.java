@@ -1,7 +1,10 @@
 package ru.skypro.homework.dto;
 
+import lombok.Builder;
+
 import java.util.List;
 
+@Builder
 public class CommentListResponse {
     private Integer count;
     private List<CommentResponse> results;

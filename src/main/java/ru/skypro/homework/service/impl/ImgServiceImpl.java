@@ -15,7 +15,7 @@ public class ImgServiceImpl implements ImgService {
 
 
     @Override
-    public String uploadImg(Long id, MultipartFile imgFile) {
+    public String uploadImg(Integer id, MultipartFile imgFile) {
         String fileName ="";
         try {
             fileName = save(id, imgFile, path);

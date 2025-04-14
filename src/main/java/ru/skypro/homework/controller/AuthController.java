@@ -20,12 +20,11 @@ public class AuthController {
     private final AuthService authService;
 
     @PostMapping("/login")
-    public ResponseEntity<Void> login(@RequestBody LoginDto login) {
+    public ResponseEntity<UserDto> login(@RequestBody LoginDto login) {
         log.info("Попытка логина с логином: {}", login.getUsername());  // Логируем попытку входа
 
         if (authService.login(login.getUsername(), login.getPassword())) {
             log.info("Пользователь {} успешно авторизован", login.getUsername());  // Логируем успешный вход
-
             return ResponseEntity.ok().build();
         } else {
             log.warn("Неудачная попытка входа для пользователя: {}", login.getUsername());  // Логируем неудачную попытку входа

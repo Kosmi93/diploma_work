@@ -1,5 +1,6 @@
 package ru.skypro.homework.controller;
 
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import ru.skypro.homework.dto.CommentRequest;
@@ -11,6 +12,7 @@ import ru.skypro.homework.service.CommentService;
 @RestController
 @RequestMapping("/ads")
 @CrossOrigin(value = "http://localhost:3000")
+@Tag(name = "Комментарии")
 public class CommentController {
 
     private final CommentService commentService;

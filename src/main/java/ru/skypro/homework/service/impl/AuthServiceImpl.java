@@ -1,13 +1,19 @@
 package ru.skypro.homework.service.impl;
 
+//import org.springframework.security.core.userdetails.User;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import ru.skypro.homework.config.MyUserDetailsService;
 import ru.skypro.homework.dto.RegisterDto;
+
+import ru.skypro.homework.dto.UserDto;
 import ru.skypro.homework.mapper.UserMapper;
 import ru.skypro.homework.model.User;
 import ru.skypro.homework.repository.UserRepository;
 import ru.skypro.homework.service.AuthService;
+
 import java.util.Optional;
 
 @Service
@@ -35,14 +41,13 @@ public class AuthServiceImpl implements AuthService {
         User user = userOptional.get();
         return encoder.matches(password, user.getPassword());
     }
-
     @Override
     public boolean register(RegisterDto registerDto) {
         Optional<User> userOptional = userRepository.findByUserName(registerDto.getUsername());
         if (userOptional.isPresent()) {
             return false;
         }
-        User user = userMapper.toRegisterUser(registerDto);
+        User user = UserMapper.toRegisterUser(registerDto);
         user.setPassword(encoder.encode(registerDto.getPassword()));
         userRepository.save(user);
         return true;

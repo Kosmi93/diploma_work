@@ -8,7 +8,6 @@ import ru.skypro.homework.model.User;
 
 import java.util.Collection;
 import java.util.Collections;
-import java.util.Optional;
 
 
 public class MyUserDetails implements UserDetails {
@@ -61,7 +60,7 @@ public class MyUserDetails implements UserDetails {
         return user;
     }
 
-    public Long getId() {
+    public Integer getId() {
         return user.getId();
     }
 
