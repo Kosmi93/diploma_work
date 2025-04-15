@@ -12,11 +12,11 @@ import java.util.List;
 public interface AdsService {
     Ad save(AdDto adsDto);
     AdsDto getAll();
-    Ad getById(Long id);
-    void deleteById(Long id);
+    Ad getById(Integer id);
+    void deleteById(Integer id);
     AdsDto getMeAds();
 
-    ExtendedAdDto geInfo(Long id);
+    ExtendedAdDto geInfo(Integer id);
 
-    CreateOrUpdateAdDto update(Long id, CreateOrUpdateAdDto ad);
+    CreateOrUpdateAdDto update(Integer id, CreateOrUpdateAdDto ad);
 }

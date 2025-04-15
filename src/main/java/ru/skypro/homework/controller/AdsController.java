@@ -44,19 +44,19 @@ public class AdsController {
 
     @GetMapping("/{id}")
     @Operation(summary = "Получение информации об объявлении")
-    public ResponseEntity<ExtendedAdDto> getInfo(@PathVariable("id") Long id) {
+    public ResponseEntity<ExtendedAdDto> getInfo(@PathVariable("id") Integer id) {
         return ResponseEntity.ok(service.geInfo(id));
     }
 
     @DeleteMapping("/{id}")
     @Operation(summary = "Удаление объявления")
-    public void delete(@PathVariable("id") Long id) {
+    public void delete(@PathVariable("id") Integer id) {
 
     }
 
     @PatchMapping("/{id}")
     @Operation(summary = "Обновление объявления")
-    public ResponseEntity<CreateOrUpdateAdDto> update(@PathVariable("id") Long id,@RequestBody CreateOrUpdateAdDto ad) {
+    public ResponseEntity<CreateOrUpdateAdDto> update(@PathVariable("id") Integer id,@RequestBody CreateOrUpdateAdDto ad) {
         return ResponseEntity.ok(service.update(id,ad));
     }
 
@@ -69,7 +69,7 @@ public class AdsController {
 
     @PatchMapping(value ="/{id}/image", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
     @Operation(summary = "Обновление картинки объявления")
-    public String updateImages(@PathVariable("id") Long id,@RequestParam MultipartFile img) {
+    public String updateImages(@PathVariable("id") Integer id,@RequestParam MultipartFile img) {
         return /*imgService.uploadImg(id,img)*/null;
 
     }

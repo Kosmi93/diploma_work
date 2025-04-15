@@ -7,7 +7,7 @@ import ru.skypro.homework.model.User;
 
 import java.util.List;
 @Repository
-public interface AdRepository extends JpaRepository<Ad, Long> {
+public interface AdRepository extends JpaRepository<Ad, Integer> {
     List<Ad> findByAuthor(User user);
 
 }

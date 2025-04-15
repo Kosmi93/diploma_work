@@ -1,5 +1,8 @@
 package ru.skypro.homework.dto;
 
+import lombok.Builder;
+
+@Builder
 public class CommentResponse {
     private Integer author;
     private String authorImage;

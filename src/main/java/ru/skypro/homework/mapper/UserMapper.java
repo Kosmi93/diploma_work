@@ -9,13 +9,13 @@ import ru.skypro.homework.model.User;
 
 @Component
 public class UserMapper {
-    public User toUserNewPassword(SetPasswordDto setPasswordDto, User user) {
+    public static User toUserNewPassword(SetPasswordDto setPasswordDto, User user) {
         return user.builder()
                 .password(setPasswordDto.getNewPassword())
                 .build();
     }
 
-    public UserDto toUserDto(User user) {
+    public static UserDto toUserDto(User user) {
         return UserDto.builder()
                 .id(user.getId())
                 .email(user.getUserName())
@@ -23,11 +23,11 @@ public class UserMapper {
                 .lastName(user.getLastName())
                 .phone(user.getPhone())
                 .role(user.getRole())
-                .image(user.getIdImage())
+                .image(user.getImage())
                 .build();
     }
 
-    public User toUpdateUser(UpdateUserDto updateUserDto, User user) {
+    public static User toUpdateUser(UpdateUserDto updateUserDto, User user) {
         return user.builder()
                 .id(user.getId())
                 .userName(user.getUserName())
@@ -36,10 +36,10 @@ public class UserMapper {
                 .lastName(updateUserDto.getLastName())
                 .phone(updateUserDto.getPhone())
                 .role(user.getRole())
-                .idImage(user.getIdImage())
+                .image(user.getImage())
                 .build();
     }
-     public UpdateUserDto toUpdateUserDto(UpdateUserDto updateUserDto, User user) {
+     public static UpdateUserDto toUpdateUserDto(UpdateUserDto updateUserDto, User user) {
         return UpdateUserDto.builder()
                 .firstName(user.getFirstName())
                 .lastName(user.getLastName())
@@ -47,10 +47,10 @@ public class UserMapper {
                 .build();
      }
 
-    public User toRegisterUser(RegisterDto registerDto) {
+    public static User toRegisterUser(RegisterDto registerDto) {
         User user = new User();
         return user.builder()
-                .userName(registerDto.getUserName())
+                .userName(registerDto.getUsername())
                 .password(registerDto.getPassword())
                 .firstName(registerDto.getFirstName())
                 .lastName(registerDto.getLastName())

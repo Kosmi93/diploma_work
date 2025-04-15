@@ -19,7 +19,7 @@ public class User {
     
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private Integer id;
     @Column(name = "username", unique = true)
     private String userName;
     private String password;
@@ -29,7 +29,7 @@ public class User {
     @Enumerated(EnumType.STRING)
     private RoleDto role;
 
-    private String idImage;
+    private String image;
 
     @OneToMany(mappedBy = "author", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<Ad> ads;
@@ -37,6 +37,6 @@ public class User {
     @OneToMany(mappedBy = "author", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<Comment> comments;
 
-    public User(Long id) {
+    public User(Integer id) {
     }
 }

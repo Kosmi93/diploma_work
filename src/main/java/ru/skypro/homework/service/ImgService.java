@@ -10,7 +10,7 @@ import static java.nio.file.StandardOpenOption.CREATE_NEW;
 
 
 public interface ImgService {
-     default String save(Long id, MultipartFile imgFile,String path) throws IOException {
+     default String save(Integer id, MultipartFile imgFile,String path) throws IOException {
 
         Path filePath = Path.of(path,id + "." + getExtensions(imgFile.getOriginalFilename()));
         Files.createDirectories(filePath.getParent());
@@ -30,6 +30,6 @@ public interface ImgService {
         return fileName.substring(fileName.lastIndexOf(".") + 1);
     }
 
-     String uploadImg (Long id, MultipartFile imgFile);
+     String uploadImg (Integer id, MultipartFile imgFile);
 
 }

@@ -40,13 +40,13 @@ public class AdsServiceImpl implements AdsService {
     }
 
     @Override
-    public Ad getById(Long id) {
+    public Ad getById(Integer id) {
 
         return adRepository.findById(id).orElseThrow();
     }
 
     @Override
-    public void deleteById(Long id) {
+    public void deleteById(Integer id) {
         adRepository.deleteById(id);
     }
 
@@ -57,17 +57,17 @@ public class AdsServiceImpl implements AdsService {
     }
 
     @Override
-    public ExtendedAdDto geInfo(Long id) {
+    public ExtendedAdDto geInfo(Integer id) {
         Ad ad = adRepository.findById(id).orElseThrow();
         return AdMapper.toExtendedAdDto(ad);
     }
 
     @Override
-    public CreateOrUpdateAdDto update(Long id, CreateOrUpdateAdDto ad) {
+    public CreateOrUpdateAdDto update(Integer id, CreateOrUpdateAdDto ad) {
         return null;
     }
 
-    private long getUserId(){
+    private Integer getUserId(){
         var userDetails = (UserDetails) SecurityContextHolder
                 .getContext().getAuthentication().getPrincipal();
         return userRepository.findByUserName(userDetails.getUsername()).orElseThrow().getId();
