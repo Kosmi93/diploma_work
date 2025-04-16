@@ -10,10 +10,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
-import ru.skypro.homework.dto.AdDto;
 import ru.skypro.homework.dto.AdsDto;
 import ru.skypro.homework.dto.CreateOrUpdateAdDto;
-import ru.skypro.homework.model.Ad;
 import ru.skypro.homework.dto.ExtendedAdDto;
 import ru.skypro.homework.service.AdsService;
 import ru.skypro.homework.service.impl.ImgServiceImpl;
@@ -26,7 +24,7 @@ import ru.skypro.homework.service.impl.ImgServiceImpl;
 @Tag(name = "Объявления")
 public class AdsController {
     private final AdsService service;
-   // private final ImgServiceImpl imgService;
+    private final ImgServiceImpl imgService;
 
 
     @GetMapping()
@@ -36,10 +34,12 @@ public class AdsController {
     }
 
 
-    @PostMapping()
+    @PostMapping(consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
     @Operation(summary = "Создание объявления")
-    public ResponseEntity add(@RequestBody AdDto ad) {
-        service.save(ad);
+    public ResponseEntity add(@RequestPart(value = "properties") CreateOrUpdateAdDto properties,
+                              @RequestParam("image") MultipartFile img) {
+
+        service.save(properties,img);
         return  ResponseEntity.status(201).build();
     }
 
@@ -75,8 +75,9 @@ public class AdsController {
 
     @GetMapping("/me")
     @Operation(summary = "Получение объявлений авторизованного пользователя")
-    public ResponseEntity<?> getAllMe() {
+    public ResponseEntity<AdsDto> getAllMe() {
         try {
+            AdsDto adsDto = service.getMeAds();
             return ResponseEntity.ok(service.getMeAds());
         } catch (Exception e) {
             return ResponseEntity.status(404).build();
@@ -87,7 +88,7 @@ public class AdsController {
     @PatchMapping(value ="/{id}/image", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
     @Operation(summary = "Обновление картинки объявления")
     public String updateImages(@PathVariable("id") Integer id,@RequestParam MultipartFile img) {
-        return /*imgService.uploadImg(id,img)*/null;
+        return imgService.uploadImg(id,img);
 
     }
 
