@@ -15,7 +15,7 @@ public class CreateOrUpdateAdDto {
     @Schema(description = "Заголовок объявления", example = "Товар")
     private String title;
     @Schema(description = "Цена", example = "38292,00")
-    private double price;
+    private int price;
     @Schema(description = "Описание объявления", example = "это объявление")
     private String description;
 

@@ -7,6 +7,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import ru.skypro.homework.dto.AdDto;
@@ -37,21 +38,33 @@ public class AdsController {
 
     @PostMapping()
     @Operation(summary = "Создание объявления")
-    public ResponseEntity<?> add(@RequestBody AdDto ad) {
+    public ResponseEntity add(@RequestBody AdDto ad) {
         service.save(ad);
-        return new ResponseEntity<>(service.save(ad),HttpStatus.valueOf(201));
+        return  ResponseEntity.status(201).build();
     }
 
     @GetMapping("/{id}")
     @Operation(summary = "Получение информации об объявлении")
     public ResponseEntity<ExtendedAdDto> getInfo(@PathVariable("id") Integer id) {
-        return ResponseEntity.ok(service.geInfo(id));
+        try {
+            return ResponseEntity.ok(service.geInfo(id));
+        } catch (Exception e) {
+            return ResponseEntity.status(404).build();
+        }
+
     }
 
     @DeleteMapping("/{id}")
     @Operation(summary = "Удаление объявления")
-    public void delete(@PathVariable("id") Integer id) {
-
+    public ResponseEntity delete(@PathVariable("id") Integer id) {
+        try {
+            service.deleteById(id);
+            return ResponseEntity.status(200).build();
+        } catch (UsernameNotFoundException e) {
+            return ResponseEntity.status(403).build();
+        }catch (RuntimeException e) {
+            return ResponseEntity.status(404).build();
+        }
     }
 
     @PatchMapping("/{id}")
@@ -63,8 +76,12 @@ public class AdsController {
     @GetMapping("/me")
     @Operation(summary = "Получение объявлений авторизованного пользователя")
     public ResponseEntity<?> getAllMe() {
-        service.getMeAds();
-        return null;
+        try {
+            return ResponseEntity.ok(service.getMeAds());
+        } catch (Exception e) {
+            return ResponseEntity.status(404).build();
+        }
+
     }
 
     @PatchMapping(value ="/{id}/image", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
