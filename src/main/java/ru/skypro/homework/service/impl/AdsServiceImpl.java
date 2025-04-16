@@ -4,6 +4,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 import ru.skypro.homework.dto.AdDto;
 import ru.skypro.homework.dto.AdsDto;
 import ru.skypro.homework.dto.CreateOrUpdateAdDto;
@@ -23,21 +24,25 @@ import java.util.List;
 public class AdsServiceImpl implements AdsService {
     private final AdRepository adRepository;
     private final UserRepository userRepository;
+    private final ImgServiceImpl imgService;
 
-    public AdsServiceImpl(AdRepository adRepository, UserRepository userRepository) {
+    public AdsServiceImpl(AdRepository adRepository, UserRepository userRepository, ImgServiceImpl imgService) {
         this.adRepository = adRepository;
         this.userRepository = userRepository;
+        this.imgService = imgService;
     }
 
-    @Override
-    public Ad save(AdDto adDto) {
-        return AdMapper.toAd(adDto);
 
+    @Override
+    public Ad save(CreateOrUpdateAdDto adsDto, MultipartFile img) {
+        int userId = getUserId();
+        Ad ad = adRepository.save(AdMapper.toAd(adsDto,userId));
+        imgService.uploadImg(ad.getPk(),img);
+        return ad;
     }
 
     @Override
     public AdsDto getAll() {
-
         return AdMapper.toAds(adRepository.findAll());
     }
 

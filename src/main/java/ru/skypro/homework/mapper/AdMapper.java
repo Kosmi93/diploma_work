@@ -2,6 +2,7 @@ package ru.skypro.homework.mapper;
 
 import ru.skypro.homework.dto.AdDto;
 import ru.skypro.homework.dto.AdsDto;
+import ru.skypro.homework.dto.CreateOrUpdateAdDto;
 import ru.skypro.homework.dto.ExtendedAdDto;
 import ru.skypro.homework.model.Ad;
 import ru.skypro.homework.model.User;
@@ -10,13 +11,11 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 public class AdMapper {
-    public static Ad toAd(AdDto adDto){
+    public static Ad toAd(CreateOrUpdateAdDto adDto, int userId) {
         User user = new User();
-        user.setId(adDto.getAuthor());
+        user.setId(userId);
         return Ad.builder()
-                .pk(adDto.getPk())
                 .author(user)
-                .image(adDto.getImage())
                 .price(adDto.getPrice())
                 .title(adDto.getTitle())
                 .description(adDto.getDescription())

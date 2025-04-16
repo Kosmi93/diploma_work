@@ -18,6 +18,8 @@ import ru.skypro.homework.dto.ExtendedAdDto;
 import ru.skypro.homework.service.AdsService;
 import ru.skypro.homework.service.impl.ImgServiceImpl;
 
+import java.io.IOException;
+
 @Slf4j
 @CrossOrigin(value = "http://localhost:3000")
 @RestController
@@ -26,7 +28,7 @@ import ru.skypro.homework.service.impl.ImgServiceImpl;
 @Tag(name = "Объявления")
 public class AdsController {
     private final AdsService service;
-   // private final ImgServiceImpl imgService;
+    private final ImgServiceImpl imgService;
 
 
     @GetMapping()
@@ -36,10 +38,11 @@ public class AdsController {
     }
 
 
-    @PostMapping()
+    @PostMapping(consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
     @Operation(summary = "Создание объявления")
-    public ResponseEntity add(@RequestBody AdDto ad) {
-        service.save(ad);
+    public ResponseEntity add(@RequestParam("image") MultipartFile img,@RequestParam("properties") CreateOrUpdateAdDto ad) {
+
+        service.save(ad,img);
         return  ResponseEntity.status(201).build();
     }
 
@@ -87,7 +90,7 @@ public class AdsController {
     @PatchMapping(value ="/{id}/image", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
     @Operation(summary = "Обновление картинки объявления")
     public String updateImages(@PathVariable("id") Integer id,@RequestParam MultipartFile img) {
-        return /*imgService.uploadImg(id,img)*/null;
+        return imgService.uploadImg(id,img);
 
     }
 
