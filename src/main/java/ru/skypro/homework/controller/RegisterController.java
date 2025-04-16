@@ -1,5 +1,6 @@
 package ru.skypro.homework.controller;
 
+import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -20,6 +21,7 @@ public class RegisterController {
 
     private final AuthService authService;
     @PostMapping("/register")
+    @Operation(summary = "Регистрация пользователя")
     public ResponseEntity<Void> register(@RequestBody RegisterDto register) {
         if (authService.register(register)) {
             log.info("Пользователь {} успешно зарегистрирован", register.getUsername());

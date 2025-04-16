@@ -6,9 +6,12 @@ import ru.skypro.homework.model.Ad;
 import ru.skypro.homework.model.Comment;
 
 import java.util.List;
+import java.util.Optional;
 
 @Repository
 public interface CommentRepository extends JpaRepository<Comment, Integer> {
 
     List<Comment> findByAd(Ad ad);
+
+    Optional<Comment> findById(Integer id);
 }

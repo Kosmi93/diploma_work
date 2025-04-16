@@ -19,7 +19,7 @@ public class CommentMapper {
     public static CommentResponse toCommentResponse(Comment comment) {
         return CommentResponse.builder()
                 .author(comment.getAuthor().getId())
-                .pk(comment.getAd().getPk())
+                .pk(comment.getPk())
                 .authorImage(comment.getAuthor().getImage())
                 .authorFirstName(comment.getAuthor().getFirstName())
                 .createdAt(comment.getCreatedAt().toInstant(ZoneOffset.UTC).toEpochMilli())
@@ -32,7 +32,7 @@ public class CommentMapper {
                 .results(comments.stream()
                         .map(s->  CommentResponse.builder()
                                 .author(s.getAuthor().getId())
-                                .pk(s.getAd().getPk())
+                                .pk(s.getPk())
                                 .authorImage(s.getAuthor().getImage())
                                 .authorFirstName(s.getAuthor().getFirstName())
                                 .createdAt(s.getCreatedAt().toInstant(ZoneOffset.UTC).toEpochMilli())

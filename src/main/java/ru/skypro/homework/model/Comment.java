@@ -18,7 +18,9 @@ public class Comment {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
 
-    private Integer id;
+    @Column(name = "id")
+    private Integer pk;
+
     @Column(nullable = false)
     private String text;
 

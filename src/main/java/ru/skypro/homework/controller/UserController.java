@@ -1,5 +1,6 @@
 package ru.skypro.homework.controller;
 
+import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
@@ -33,6 +34,7 @@ public class UserController {
     }
 
     @PostMapping("/set_password")
+    @Operation(summary = "Обновление пароля")
     public ResponseEntity<Void> setPassword(@RequestBody SetPasswordDto password, Authentication authentication) {
         try {
             userService.setPassword(password, authentication.getName());
@@ -44,6 +46,7 @@ public class UserController {
     }
 
     @GetMapping("/me")
+    @Operation(summary = "Получение информации об авторизованном пользователе")
     public ResponseEntity<UserDto> getAuthUser() {
         UserDto user = userService.getUser();
         return ResponseEntity.ok(user);
@@ -51,12 +54,14 @@ public class UserController {
 
 
     @PatchMapping("/me")
+    @Operation(summary = "Обновление информации об авторизованном пользователе")
     public ResponseEntity<UpdateUserDto> updateUser(@Valid @RequestBody UpdateUserDto updateUser) {
         UpdateUserDto updatedUser = userService.updateUser(updateUser);
         return ResponseEntity.ok(updatedUser);
     }
 
     @PatchMapping(value = "/me/image", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
+    @Operation(summary = "Обновление аватара авторизованного пользователя")
     public ResponseEntity<Void> updateUserImage(@RequestParam("image") MultipartFile image) throws IOException {
         userService.updateUserImage(image);
         return ResponseEntity.ok().build();

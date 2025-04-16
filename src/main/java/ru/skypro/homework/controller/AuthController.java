@@ -1,5 +1,6 @@
 package ru.skypro.homework.controller;
 
+import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -20,6 +21,7 @@ public class AuthController {
     private final AuthService authService;
 
     @PostMapping("/login")
+    @Operation(summary = "Авторизация пользователя")
     public ResponseEntity<UserDto> login(@RequestBody LoginDto login) {
         log.info("Попытка логина с логином: {}", login.getUsername());  // Логируем попытку входа
 
