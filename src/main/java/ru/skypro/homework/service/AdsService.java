@@ -12,7 +12,7 @@ public interface AdsService {
     Ad getById(Integer id);
     void deleteById(Integer id);
     AdsDto getMeAds();
-
+    String imageUpdate(int id,MultipartFile img);
     ExtendedAdDto geInfo(Integer id);
 
     CreateOrUpdateAdDto update(Integer id, CreateOrUpdateAdDto ad);

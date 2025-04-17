@@ -1,5 +1,7 @@
 package ru.skypro.homework.service.impl;
 
+
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -24,6 +26,8 @@ public class AdsServiceImpl implements AdsService {
     private final AdRepository adRepository;
     private final UserRepository userRepository;
     private final ImgServiceImpl imgService;
+    @Value("${path.to.imgAd.folder}")
+    private  String path;
 
     public AdsServiceImpl(AdRepository adRepository, UserRepository userRepository, ImgServiceImpl imgService) {
         this.adRepository = adRepository;
@@ -36,7 +40,7 @@ public class AdsServiceImpl implements AdsService {
     public Ad save(CreateOrUpdateAdDto adsDto, MultipartFile img) {
         int userId = getUserId();
         Ad ad = adRepository.save(AdMapper.toAd(adsDto,userId));
-        ad.setImage(imgService.uploadImg(ad.getPk(),img));
+        ad.setImage(imgService.uploadImg(ad.getPk(),img,path));
         adRepository.save(ad);
         return ad;
     }
@@ -72,6 +76,13 @@ public class AdsServiceImpl implements AdsService {
     }
 
     @Override
+    public String imageUpdate(int id,MultipartFile img) {
+        String paths = imgService.uploadImg(id,img,path);
+        adRepository.save(adRepository.findById(id).get().setImage(paths)) ;
+        return paths;
+    }
+
+    @Override
     public ExtendedAdDto geInfo(Integer id) {
         Ad ad = adRepository.findById(id).orElseThrow(() -> new AdNotFoundException("Ad is not found"));
         return AdMapper.toExtendedAdDto(ad);
@@ -91,12 +102,13 @@ public class AdsServiceImpl implements AdsService {
         } else {
             throw new RuntimeException("The user does not have access");
         }
-        return null;
+        return AdMapper.toCreateOrUpdateAdDto(ad);
     }
 
     private Integer getUserId(){
         var userDetails = (UserDetails) SecurityContextHolder
                 .getContext().getAuthentication().getPrincipal();
         return userRepository.findByUserName(userDetails.getUsername()).orElseThrow(() -> new UserNotFoundException("User not found")).getId();
+
     }
 }

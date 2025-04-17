@@ -11,6 +11,14 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 public class AdMapper {
+
+    public static CreateOrUpdateAdDto toCreateOrUpdateAdDto(Ad ad){
+        return CreateOrUpdateAdDto.builder()
+                .title(ad.getTitle())
+                .price(ad.getPrice())
+                .description(ad.getDescription())
+                .build();
+    }
     public static Ad toAd(CreateOrUpdateAdDto adDto, int userId) {
         User user = new User();
         user.setId(userId);

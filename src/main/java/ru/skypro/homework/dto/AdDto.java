@@ -8,7 +8,6 @@ import lombok.*;
 @NoArgsConstructor
 @Builder
 public class AdDto {
-
     private Integer author;
     private String image;
     private Integer pk;

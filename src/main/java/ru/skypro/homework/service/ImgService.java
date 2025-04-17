@@ -30,6 +30,6 @@ public interface ImgService {
         return fileName.substring(fileName.lastIndexOf(".") + 1);
     }
 
-     String uploadImg (Integer id, MultipartFile imgFile);
+     String uploadImg (Integer id, MultipartFile imgFile, String path);
 
 }

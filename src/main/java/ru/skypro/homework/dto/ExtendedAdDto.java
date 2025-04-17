@@ -11,7 +11,7 @@ import lombok.*;
 @Builder
 public class ExtendedAdDto {
     @Schema(description = "Id объявления", example = "13221")
-    private Integer pk;
+    private long pk;
     @Schema(description = "Имя автора", example = "Иван")
     private String authorFirstName;
     @Schema(description = "Фамилия пользователя", example = "Иванов")
@@ -25,7 +25,7 @@ public class ExtendedAdDto {
     @Schema(description = "телефон автора объявления", example = "88888888888")
     private String phone;
     @Schema(description = "Цена", example = "38292,00")
-    private Integer price;
+    private int price;
     @Schema(description = "Заголовок объявления", example = "Товар")
     private String title;
 }

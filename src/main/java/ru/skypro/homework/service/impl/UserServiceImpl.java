@@ -30,6 +30,8 @@ public class UserServiceImpl implements UserService {
     private final UserMapper userMapper;
     private final PasswordEncoder passwordEncoder;
     private final ImgService imgService;
+    @Value("${path.to.imgAd.folder}")
+    private  String path;
 
     public UserServiceImpl(UserRepository userRepository, UserMapper userMapper, PasswordEncoder passwordEncoder, ImgService imgService) {
         this.userRepository = userRepository;
@@ -76,7 +78,7 @@ public class UserServiceImpl implements UserService {
         String userName = SecurityContextHolder.getContext().getAuthentication().getName();
         User user = userRepository.findByUserName(userName)
                 .orElseThrow(() -> new UsernameNotFoundException("Username not found"));
-        String savedImagePath = imgService.uploadImg(user.getId(), file);
+        String savedImagePath = imgService.uploadImg(user.getId(), file,path);
         user.setImage(savedImagePath);
         userRepository.save(user);
     }
