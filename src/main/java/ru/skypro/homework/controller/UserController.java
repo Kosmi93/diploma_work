@@ -66,4 +66,9 @@ public class UserController {
         userService.updateUserImage(image);
         return ResponseEntity.ok().build();
     }
+    @GetMapping(value = "{username}/image", produces = {MediaType.IMAGE_JPEG_VALUE, MediaType.IMAGE_PNG_VALUE})
+    public ResponseEntity<byte[]> getUserImage(@PathVariable String username) {
+        return ResponseEntity.ok(userService.getImage(username));
+    }
+
 }

@@ -20,6 +20,8 @@ import ru.skypro.homework.service.UserService;
 
 import java.awt.*;
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
 import java.util.Optional;
 
 @Service
@@ -77,5 +79,14 @@ public class UserServiceImpl implements UserService {
         String savedImagePath = imgService.uploadImg(user.getId(), file);
         user.setImage(savedImagePath);
         userRepository.save(user);
+    }
+    @Override
+    public byte[] getImage(String username) {
+        try {
+            User user = userRepository.findByUserName(username).orElseThrow(() -> new UsernameNotFoundException("Username is not found"));
+            return Files.readAllBytes(Path.of(user.getImage()));
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
     }
 }
