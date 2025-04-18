@@ -70,7 +70,7 @@ public class UserServiceImpl implements UserService {
         User updateUser = userMapper.toUpdateUser(updateUserDto, user);
         userRepository.save(updateUser);
 
-        return userMapper.toUpdateUserDto(updateUserDto, user);
+        return userMapper.toUpdateUserDto(updateUserDto, updateUser);
     }
 
     @Override

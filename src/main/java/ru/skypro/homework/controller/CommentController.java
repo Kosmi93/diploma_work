@@ -2,7 +2,9 @@ package ru.skypro.homework.controller;
 
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import ru.skypro.homework.dto.CommentRequest;
 import ru.skypro.homework.dto.CommentResponse;
@@ -38,14 +40,16 @@ public class CommentController {
     }
 
     @DeleteMapping("/{adId}/comments/{commentId}")
+    @PreAuthorize("@commentServiceImpl.verificationAuthorComment(#commentId)")
     public ResponseEntity<Void> deleteComment(@PathVariable Integer adId,
                                               @PathVariable Integer commentId) {
-        commentService.deleteComment(adId, commentId);
-        return ResponseEntity.ok().build();
+            commentService.deleteComment(adId, commentId);
+            return ResponseEntity.ok().build();
     }
 
     @PatchMapping("/{adId}/comments/{commentId}")
     @Operation(summary = "Обновить комментарий")
+    @PreAuthorize("@commentServiceImpl.verificationAuthorComment(#commentId)")
     public ResponseEntity<CommentResponse> updateComment(@PathVariable Integer adId,
                                                          @PathVariable Integer commentId,
                                                          @RequestBody CommentUpdateRequest commentUpdateRequest) {

@@ -10,4 +10,6 @@ public interface CommentService {
     CommentResponse addComment(Integer adId, CommentRequest commentRequest);
     void deleteComment(Integer adId, Integer commentId);
     CommentResponse updateComment(Integer adId, Integer commentId, CommentUpdateRequest commentUpdateRequest);
+
+    boolean verificationAuthorComment(Integer commentId);
 }
