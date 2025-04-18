@@ -8,6 +8,7 @@ import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 
 @Data
+@Builder
 public class RegisterDto {
 
     @Size(min = 4, max = 32, message = "Логин должен содержать от 4 до 32 символов")
