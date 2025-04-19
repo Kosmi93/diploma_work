@@ -9,7 +9,7 @@ import org.springframework.security.web.SecurityFilterChain;
 @TestConfiguration
 public class TestSecurityConfig {
 
-    @Bean
+/*    @Bean
     public SecurityFilterChain testSecurityFilterChain(HttpSecurity http) throws Exception {
         http.csrf().disable()
                 .authorizeHttpRequests()
@@ -20,5 +20,5 @@ public class TestSecurityConfig {
     public WebSecurityCustomizer webSecurityCustomizer() {
         // Полностью отключает security для тестов
         return web -> web.ignoring().antMatchers("/**");
-    }
+    }*/
 }

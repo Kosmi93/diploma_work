@@ -18,7 +18,6 @@ import ru.skypro.homework.dto.RoleDto;
 import static org.springframework.security.config.Customizer.withDefaults;
 
 @Configuration
-@EnableMethodSecurity
 public class WebSecurityConfig {
     @Autowired
     private MyUserDetailsService myUserDetailsService;
@@ -41,7 +40,7 @@ public class WebSecurityConfig {
                                 authorization
                                         .mvcMatchers(AUTH_WHITELIST)
                                         .permitAll()
-                                        .mvcMatchers("/ads/**", "/users/**","/register")
+                                        .mvcMatchers("/ads/**", "/users/**")
                                         .authenticated())
                 .cors()
                 .and()
